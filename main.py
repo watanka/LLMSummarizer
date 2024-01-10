@@ -1,17 +1,6 @@
-
-
 from summary.inputhandler import AbstractInputHandler, YoutubeInputHandler
 from summary.transcriber import AbstractTransriber, WhisperAPITranscriber
 from summary.mapreducer import AbstractMapReducer, LangChainMapReducer
-
-
-
-transcriber = WhisperAPITranscriber()
-
-
-url = 'https://www.youtube.com/watch?v=QgaTjRH5sqk'
-transcribe_model = 'FAKEMODEL'
-
 
 
 def transcribe(transcription_path, transcribe_model) :    
@@ -46,15 +35,15 @@ def summarize(url,
 if __name__ == '__main__' :
     import argparse
 
-    args = argparse.ArgumentParser()
-    args.add_argument('--url')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--url')
+    args = parser.parse_args()
 
-    whisper_model = OpenAI(api_key = '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')
     input_handler = YoutubeInputHandler()
-    transcriber = WhisperAPITranscriber(transcribe_model=whisper_model)
+    transcriber = WhisperAPITranscriber()
     mapreducer = LangChainMapReducer()
 
-    summary_result = summarize( url,
+    summary_result = summarize(args.url,
                                 input_handler,
                                 transcriber,
                                 mapreducer)
