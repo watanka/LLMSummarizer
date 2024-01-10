@@ -25,9 +25,10 @@ TEST_TRANSCRIPTION = '''
 
 def test_mapreduce() :
     MapReducer = LangChainMapReducer()
-    result = MapReducer(TEST_TRANSCRIPTION)
+    summary_result = MapReducer(TEST_TRANSCRIPTION)
 
-    assert type(result) is str
+    assert type(summary_result) is str
+    assert len(summary_result) < len(TEST_TRANSCRIPTION) # 요약 결과를 테스트하는 더 나은 방법이 있을까?
     
 
     

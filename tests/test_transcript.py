@@ -1,6 +1,7 @@
 import pytube
 from openai import OpenAI
 
+from summary.inputhandler import YoutubeInputHandler
 from summary.transcriber import WhisperAPITranscriber
 
 import os, shutil
@@ -48,17 +49,15 @@ def test_transcriber_abstract_details() :
     youtube_parser = pytube.YouTube(URL)
     
     video_stream = youtube_parser.streams.filter(only_audio = True).first()
+    
 
-    # 다운로드를 위한 폴더 생성
-    os.makedirs(TMP_DOWNLOAD_DIR, exist_ok = True)
+    input_handler = YoutubeInputHandler()
+    input_handler.parse(URL)
+ 
+    transcriber = WhisperAPITranscriber()
+    transcription = transcriber(input_handler.audio_stream())
 
-    video_stream.download(output_path = TMP_DOWNLOAD_DIR, filename = TMP_FNAME)
-
-    audio_file = open(os.path.join(TMP_DOWNLOAD_DIR, TMP_FNAME), 'rb')
-
-    transcription = transcriber(audio_file)
-
-    assert type(transcription) == str
+    assert type(transcription) is str
 
     
 
