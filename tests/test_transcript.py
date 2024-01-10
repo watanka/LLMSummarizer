@@ -43,14 +43,6 @@ def test_openai_whisper_takes_pytube_stream_as_input() :
 def test_transcriber_abstract_details() :
     URL = 'https://www.youtube.com/watch?v=QgaTjRH5sqk'
 
-    TMP_DOWNLOAD_DIR = './tmp/'
-    TMP_FNAME = 'test.mp3'
-
-    youtube_parser = pytube.YouTube(URL)
-    
-    video_stream = youtube_parser.streams.filter(only_audio = True).first()
-    
-
     input_handler = YoutubeInputHandler()
     input_handler.parse(URL)
  
