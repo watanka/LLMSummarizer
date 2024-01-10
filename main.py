@@ -1,8 +1,8 @@
 
 
+from summary.inputhandler import AbstractInputHandler, YoutubeInputHandler
 from summary.transcriber import AbstractTransriber, WhisperAPITranscriber
 from summary.mapreducer import AbstractMapReducer, LangChainMapReducer
-from summary.inputhandler import YoutubeInputHandler
 
 
 
@@ -21,7 +21,7 @@ def transcribe(transcription_path, transcribe_model) :
 
 
 def summarize(url, 
-         input_handler : YoutubeInputHandler, 
+         input_handler : AbstractInputHandler, 
          transcriber : AbstractTransriber,
          mapreducer : AbstractMapReducer
          ) :

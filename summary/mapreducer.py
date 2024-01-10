@@ -3,6 +3,8 @@ from langchain_openai.llms import OpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
+import abc
+
 import os
 from dotenv import load_dotenv
 
@@ -18,8 +20,11 @@ output_parser = StrOutputParser()
 llm_chain = prompt | llm | output_parser
 
 
-class AbstractMapReducer :
-    pass
+class AbstractMapReducer(abc.ABC) :
+    @abc.abstractmethod
+    def __call__(self, transcription) :
+        raise NotImplementedError
+
 
 class FakeMapReducer(AbstractMapReducer) :
     def __init__(self, llm_chain = {'docs' : 'FAKE SUMMARY'} ) :

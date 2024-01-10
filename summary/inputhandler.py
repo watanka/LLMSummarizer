@@ -1,13 +1,31 @@
 from pytube import YouTube
 from pytube.exceptions import VideoUnavailable
 
+import abc
+
 from uuid import uuid4
 import os
 
 tmpdir = './tmp'
 os.makedirs(tmpdir, exist_ok = True)
 
-class YoutubeInputHandler :
+
+class AbstractInputHandler(abc.ABC) :
+    @abc.abstractmethod
+    def parse(self, url) :
+        raise NotImplementedError
+    
+    @abc.abstractmethod
+    def check_availability(self) :
+        raise NotImplementedError
+    
+    @abc.abstractmethod
+    def audio_stream(self) : 
+        raise NotImplementedError
+
+
+
+class YoutubeInputHandler(AbstractInputHandler) :
     def __init__(self, parser = YouTube) :
         self.parser = parser
         self.parse_obj = None
