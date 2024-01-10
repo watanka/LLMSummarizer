@@ -8,7 +8,7 @@ class AbstractTransriber :
     pass
 
 
-class FakeTranscribeModel :
+class FakeTranscriber :
     def __call__(self, video_path : str) -> str :
         return f'Given {video_path}, BUT THIS IS FAKE TRANSCRIPTION.'
 

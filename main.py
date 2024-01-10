@@ -1,12 +1,12 @@
-from openai import OpenAI
+
 
 from summary.transcriber import AbstractTransriber, WhisperAPITranscriber
 from summary.mapreducer import AbstractMapReducer, LangChainMapReducer
 from summary.inputhandler import YoutubeInputHandler
 
 
-whisper_model = OpenAI(api_key = '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')
-transcriber = WhisperAPITranscriber(whisper_model)
+
+transcriber = WhisperAPITranscriber()
 
 
 url = 'https://www.youtube.com/watch?v=QgaTjRH5sqk'
