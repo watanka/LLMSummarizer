@@ -14,3 +14,5 @@
 
 
 - pytube는 borg 패턴으로 pytube.streams.Stream 클래스를 리턴
+- audio 파일 핸들링
+- 파일과 stream의 차이? 메모리에 있는 데이터와 파일에 있는 데이터와 어떻게 다른건지?
