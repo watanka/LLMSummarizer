@@ -2,6 +2,7 @@ from langchain.schema import Document
 from langchain_openai.llms import OpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+import openai
 
 import abc
 
@@ -37,10 +38,15 @@ class FakeMapReducer(AbstractMapReducer) :
 
 class LangChainMapReducer(AbstractMapReducer) :
 
-    def __init__(self, llm_chain = llm_chain) :
+    def __init__(self, llm_chain = llm_chain, api_key = None) :
         self.llm_chain = llm_chain
+        if api_key :
+            self.llm_chain.middle[0].openai_api_key = api_key
+
 
     def __call__(self, transcription) :
+        
         return self.llm_chain.invoke({'docs' : transcription})
+        
 
 

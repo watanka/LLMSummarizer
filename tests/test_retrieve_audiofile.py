@@ -1,5 +1,5 @@
 import pytube
-from summary.inputhandler import YoutubeInputHandler
+from src.inputhandler import YoutubeInputHandler
 
 def test_retrieve_url_to_stream() :
     URL = 'https://www.youtube.com/watch?v=QgaTjRH5sqk'

@@ -1,15 +1,9 @@
-from summary.inputhandler import AbstractInputHandler, YoutubeInputHandler
-from summary.transcriber import AbstractTransriber, WhisperAPITranscriber
-from summary.mapreducer import AbstractMapReducer, LangChainMapReducer
+from src.inputhandler import AbstractInputHandler, YoutubeInputHandler
+from src.transcriber import AbstractTransriber, WhisperAPITranscriber
+from src.mapreducer import AbstractMapReducer, LangChainMapReducer
 
 
-def transcribe(transcription_path, transcribe_model) :    
-    # 다운로드한 값 
-    transcription = transcribe_model(transcription_path)
-    return transcription
-
-
-def summarize(url, 
+def summarize(url, api_key,
          input_handler : AbstractInputHandler, 
          transcriber : AbstractTransriber,
          mapreducer : AbstractMapReducer
@@ -21,7 +15,7 @@ def summarize(url,
     url_available = input_handler.check_availability()
     if not url_available :
         print('url is not available')
-        return
+        return False
     audio_file = input_handler.audio_stream()
 
     # 다운로드한 mp3를 transcriber 모델(whisper)을 사용하여 텍스트파일로 변환한다.

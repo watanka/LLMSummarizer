@@ -32,8 +32,10 @@ class WhisperLocalTranscriber(AbstractTransriber) :
 
 
 class WhisperAPITranscriber(AbstractTransriber) :
-    def __init__(self, transcribe_model = whisper_model) :
+    def __init__(self, transcribe_model = whisper_model, api_key = None) :
         self.transcribe_model = transcribe_model
+        if api_key :
+            self.transcribe_model.api_key = api_key
 
     def __call__(self, video_binary : str) -> str :
         transcription = self.transcribe_model.audio.transcriptions.create(

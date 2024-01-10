@@ -1,4 +1,4 @@
-from summary.mapreducer import LangChainMapReducer
+from src.mapreducer import LangChainMapReducer
 
 TEST_TRANSCRIPTION = '''
 조선조 세종 때에 한 재상이 있었으니, 성은 홍씨요 이름은 아무였다. 대대 명문거족의 후예로서 어린 나이에 급제해 벼슬이 이조판서에까지 이르렀다. 물망이 조야에 으뜸인데다 충효까지 갖추어 그 이름을 온 나라에 떨쳤다. 일찍 두 아들을 두었는데, 하나는 이름이 인형으로서 본처 유씨가 낳은 아들이고, 다른 하나는 이름이 길동으로서 시비 춘섬이 낳은 아들이었다.
