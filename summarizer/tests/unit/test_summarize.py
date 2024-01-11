@@ -1,6 +1,11 @@
 from src.mapreducer import LangChainMapReducer
+import os
+from dotenv import load_dotenv
 
-TEST_TRANSCRIPTION = '''
+load_dotenv()
+api_key = os.environ["OPENAI_API_KEY"]
+
+TEST_TRANSCRIPTION = """
 조선조 세종 때에 한 재상이 있었으니, 성은 홍씨요 이름은 아무였다. 대대 명문거족의 후예로서 어린 나이에 급제해 벼슬이 이조판서에까지 이르렀다. 물망이 조야에 으뜸인데다 충효까지 갖추어 그 이름을 온 나라에 떨쳤다. 일찍 두 아들을 두었는데, 하나는 이름이 인형으로서 본처 유씨가 낳은 아들이고, 다른 하나는 이름이 길동으로서 시비 춘섬이 낳은 아들이었다.
 그 앞서, 공이 길동을 낳기 전에 한 꿈을 꾸었다. 갑자기 우레와 벽력이 진동하며 청룡이 수염을 거꾸로 하고 공을 향하여 달려들기에, 놀라 깨니 한바탕 꿈이었다. 마음 속으로 크게 기뻐하여 생각하기를, '내 이제 용꿈을 꾸었으니 반드시 귀한 자식을 낳으리라.' 하고, 즉시 내당으로 들어가니, 부인 유씨가 일어나 맞이하였다. 공은 기꺼이 그 고운 손을 잡고 바로 관계하고자 하였으나, 부인은 정색을 하고 말했다.
 "상공께서는 위신을 돌아보지도 않은 채 어리고 경박한 사람의 비루한 행위를 하고자 하시니, 첩은 따르지 않겠습니다."
@@ -20,17 +25,12 @@ TEST_TRANSCRIPTION = '''
 하고, 눈물을 흘리며 적삼을 적셨다. 공이 듣고 나자 비록 불쌍하다는 생각은 들었으나, 그 마음을 위로하면 마음이 방자해질까 염려되어, 크게 꾸짖어 말했다.
 "재상 집안에 천한 종의 몸에서 태어난 자식이 너뿐이 아닌데, 네가 어찌 이다지 방자하냐? 앞으로 다시 이런 말을 하면 내 눈앞에 서지도 못하게 하겠다."
 이렇게 꾸짖으니 길동은 감히 한 마디도 더 하지 못하고, 다만 당에 엎드려 눈물을 흘릴 뿐이었다. 공이 물러가라 하자, 그제서야 길동은 침소로 돌아와 슬퍼해 마지않았다. 길동이 본래 재주가 뒤어나고 도량이 활달한지라 마음을 가라앉히지 못해 밤이면 잠을 이루지 못하곤 했다. d
-'''
+"""
 
 
-def test_mapreduce() :
-    MapReducer = LangChainMapReducer()
+def test_mapreduce():
+    MapReducer = LangChainMapReducer(api_key=api_key)
     summary_result = MapReducer(TEST_TRANSCRIPTION)
 
     assert type(summary_result) is str
-    assert len(summary_result) < len(TEST_TRANSCRIPTION) # 요약 결과를 테스트하는 더 나은 방법이 있을까?
-    
-
-    
-
-    
+    assert len(summary_result) < len(TEST_TRANSCRIPTION)  # 요약 결과를 테스트하는 더 나은 방법이 있을까?

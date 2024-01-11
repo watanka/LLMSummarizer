@@ -1,6 +1,10 @@
+fastapi
+pydantic
+uvicorn
 langchain
 langchain-core
 langchain_openai
 pytube
 python-dotenv
 openai
+pytest
