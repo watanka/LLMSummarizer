@@ -1,6 +1,7 @@
 fastapi
 pydantic
 uvicorn
+gunicorn
 langchain
 langchain-core
 langchain_openai
