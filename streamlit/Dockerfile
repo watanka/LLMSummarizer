@@ -1,6 +1,7 @@
 FROM python:3.10-slim
 
 WORKDIR /streamlit
+ENV OPENAI_API_KEY ${OPENAI_API_KEY}
 
 COPY . .
 
