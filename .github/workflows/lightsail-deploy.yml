@@ -4,7 +4,7 @@ on:
   push:
     branches: ['master']
   pull_request:
-    braches: ['master']
+    branches: ['master']
 
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
