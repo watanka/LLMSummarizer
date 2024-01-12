@@ -3,27 +3,9 @@ services:
   summarizer :
     image: llmsummarizer
     build:
-      context: ./summarizer
+      context: ./
 
     environment :
       -  OPENAI_API_KEY=${OPENAI_API_KEY}
     ports:
       - 8090:8090
-    networks:
-      - my_network
-
-  
-  streamlit :
-    image: llmsummarizer-streamlit
-    build:
-      context: ./streamlit
-
-    environment :
-      -  OPENAI_API_KEY=${OPENAI_API_KEY}
-    ports:
-      - 8502:8501
-    networks: 
-      - my_network
-
-networks:
-  my_network:
