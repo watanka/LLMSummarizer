@@ -2,9 +2,9 @@ name: lightsail-deploy
 
 on:
   push:
-    branches: ['main']
+    branches: ['master']
   pull_request:
-    braches: ['main']
+    braches: ['master']
 
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
