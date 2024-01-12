@@ -9,7 +9,7 @@ on:
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
   LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
-  LIGHTSAIL_USERNAME: silver
+  LIGHTSAIL_USERNAME: ubuntu
   AWS_REGION: ap-northeast-2
 
 jobs:
@@ -47,11 +47,7 @@ jobs:
         run: aws configure list
 
       - name: deploy automation
-        uses: appleboy/ssh-action@v0.1.4
-        with: 
-          host: ${{ secrets.LIGHTSAIL_HOST }}
-          username: ${{ env.LIGHTSAIL_USERNAME }}
-          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-          script: |
+          run: |
+            ssh -i ${{ secrets.LIGHTSAIL_SSH_KEY }} ${{ secrets.LIGHTSAIL_USERNAME }}@${{ secrets.LIGHTSAIL_HOST }} 'bash -s' <<EOF
             cd ~/project/LLMSummarizer
             sh docker-deploy.sh  
