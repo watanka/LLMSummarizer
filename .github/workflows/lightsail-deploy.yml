@@ -47,7 +47,7 @@ jobs:
         run: aws configure list
 
       - name: deploy automation
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@0.1.4
         with: 
           host: ${{ secrets.LIGHTSAIL_HOST }}
           username: ${{ env.LIGHTSAIL_USERNAME }}
