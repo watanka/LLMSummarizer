@@ -1,4 +1,4 @@
-from src.mapreducer import LangChainMapReducer
+from summarizer.src.mapreducer import LangChainMapReducer
 import os
 from dotenv import load_dotenv
 

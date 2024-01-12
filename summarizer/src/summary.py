@@ -1,6 +1,6 @@
-from src.inputhandler import AbstractInputHandler, YoutubeInputHandler
-from src.transcriber import AbstractTransriber, WhisperAPITranscriber
-from src.mapreducer import AbstractMapReducer, LangChainMapReducer
+from summarizer.src.inputhandler import AbstractInputHandler, YoutubeInputHandler
+from summarizer.src.transcriber import AbstractTransriber, WhisperAPITranscriber
+from summarizer.src.mapreducer import AbstractMapReducer, LangChainMapReducer
 
 
 def summarize(

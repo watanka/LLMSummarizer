@@ -1,8 +1,8 @@
 import pytube
 from openai import OpenAI
 
-from src.inputhandler import YoutubeInputHandler
-from src.transcriber import WhisperAPITranscriber
+from summarizer.src.inputhandler import YoutubeInputHandler
+from summarizer.src.transcriber import WhisperAPITranscriber
 
 import os, shutil
 import json

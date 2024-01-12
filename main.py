@@ -1,17 +1,37 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 from starlette.exceptions import HTTPException
+from starlette.responses import FileResponse
+from starlette.staticfiles import StaticFiles
 from starlette import status
 import uvicorn
 
-from src.summary import summarize
-from src.inputhandler import YoutubeInputHandler
-from src.transcriber import WhisperAPITranscriber
-from src.mapreducer import LangChainMapReducer
-from schema import SummaryRequest
+from summarizer.src.summary import summarize
+from summarizer.src.inputhandler import YoutubeInputHandler
+from summarizer.src.transcriber import WhisperAPITranscriber
+from summarizer.src.mapreducer import LangChainMapReducer
+from summarizer.src.schema import SummaryRequest
 
 
 app = FastAPI()
+app.mount('/assets', StaticFiles(directory='frontend/dist/assets') )
 
+
+origins = [
+    "http://localhost:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+def index():
+    return FileResponse("frontend/dist/index.html")
 
 @app.post("/summary", status_code=status.HTTP_200_OK)
 def request_summary(summary_request: SummaryRequest):

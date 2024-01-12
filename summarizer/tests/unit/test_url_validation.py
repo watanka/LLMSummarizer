@@ -1,7 +1,7 @@
 from pytube import YouTube, exceptions
 import pytest
 
-from src.inputhandler import YoutubeInputHandler
+from summarizer.src.inputhandler import YoutubeInputHandler
 
 
 def test_url_is_valid():
