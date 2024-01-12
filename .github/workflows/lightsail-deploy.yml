@@ -42,4 +42,4 @@ jobs:
           host: ${{ secrets.LIGHTSAIL_HOST }}
           username: ${{ env.LIGHTSAIL_USERNAME }}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-          script: sh docker-deploy.sh 
+          script: sh docker-deploy.sh  
