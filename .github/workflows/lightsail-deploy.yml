@@ -48,7 +48,10 @@ jobs:
 
       - name: deploy automation
         run: |
-            ssh -i ${{ secrets.LIGHTSAIL_SSH_KEY }} ${{ secrets.LIGHTSAIL_USERNAME }}@${{ secrets.LIGHTSAIL_HOST }} 'bash -s' <<EOF
+
+            ssh-agent bash
+            ssh-add <(echo ${{ secrets.LIGHTSAIL_SSH_KEY }})
+            ssh user@hostname 'bash -s' <<EOF
               cd ~/project/LLMSummarizer
               sh docker-deploy.sh  
             EOF
