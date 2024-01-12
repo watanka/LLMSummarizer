@@ -29,11 +29,13 @@ with st.form("my-form"):
         "요약이 필요한 Youtube URL을 입력해주세요.",
         key="url",
         autocomplete="https://www.youtube.com/watch?v=QgaTjRH5sqk",
+        disabled=True
     )
     api_key = st.text_input(
         "OpenAI api key를 입력해주세요. [해당 링크](https://platform.openai.com/api-keys)에서 만들 수 있습니다.",
         key="api_key",
         autocomplete=api_key,
+        disabled=True
     )
 
     submitted = st.form_submit_button(
