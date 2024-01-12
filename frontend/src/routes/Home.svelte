@@ -8,9 +8,6 @@
     let apiKey = '';
     let Buttondisabled = false;
 
-  function handleInput(){
-    alert(`입력값 : ${urlInput}`);
-  }
 
   async function requestSummary(event) {
         event.preventDefault()
