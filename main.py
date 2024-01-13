@@ -12,13 +12,14 @@ from summarizer.src.transcriber import WhisperAPITranscriber
 from summarizer.src.mapreducer import LangChainMapReducer
 from summarizer.src.schema import SummaryRequest
 
+import os
 
 app = FastAPI()
 app.mount('/assets', StaticFiles(directory='frontend/dist/assets') )
 
 
 origins = [
-    "http://localhost:5173",
+    os.getenv('VITE_SERVER_URL', "http://localhost:5173")
 ]
 
 app.add_middleware(
