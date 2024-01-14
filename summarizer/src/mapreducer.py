@@ -38,10 +38,11 @@ class FakeMapReducer(AbstractMapReducer):
 
 
 class LangChainMapReducer(AbstractMapReducer):
-    def __init__(self, api_key, llm_chain=llm_chain):
+    def __init__(self, api_key = None, llm_chain=llm_chain):
         self.llm_chain = llm_chain
-        self.llm_chain.middle[0].openai_api_key = api_key
+        if api_key :
+            self.llm_chain.middle[0].openai_api_key = api_key
 
     def __call__(self, transcription):
 
-        return self.llm_chain.invoke({"docs": transcription})
+        return self.llm_chain.stream({"docs": transcription})

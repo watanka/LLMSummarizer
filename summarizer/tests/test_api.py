@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 from dotenv import load_dotenv
 import os
 
-from app import app
+from main import app
 
 load_dotenv()
 test_api_key = os.environ["OPENAI_API_KEY"]

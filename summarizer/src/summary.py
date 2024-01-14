@@ -20,10 +20,15 @@ def summarize(
         return False
     audio_file = input_handler.audio_stream()
 
+
+
     # 다운로드한 mp3를 transcriber 모델(whisper)을 사용하여 텍스트파일로 변환한다.
+    # api key 재설정
+    transcriber.transcribe_model.api_key = api_key
     transcription = transcriber(audio_file)
 
     # 텍스트 정보를 요약한다.
+    mapreducer.llm_chain.middle[0].openai_api_key = api_key
     summary_result = mapreducer(transcription)
 
     return summary_result
@@ -38,13 +43,12 @@ if __name__ == "__main__":
     api_key = os.environ["OPENAI_API_KEY"]
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url")
+    parser.add_argument("--url", required = False)
     args = parser.parse_args()
 
     input_handler = YoutubeInputHandler()
     transcriber = WhisperAPITranscriber(api_key=api_key)
     mapreducer = LangChainMapReducer(api_key=api_key)
 
-    summary_result = summarize(args.url, input_handler, transcriber, mapreducer)
 
-    print(summary_result)
+    summary_result = summarize(args.url, api_key, input_handler, transcriber, mapreducer)
