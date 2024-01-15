@@ -1,7 +1,17 @@
+FROM node:18-alpine as builder
+
+COPY /frontend /frontend
+
+RUN cd /frontend/ && npm install && npm run build 
+
 FROM python:3.10-slim
 
 COPY . .
-ENV OPENAI_API_KEY=${OPENAI_API_KEY}
+COPY .env /.env
+
+COPY --from=builder /frontend /
+
+ENV OPENAI_API_KEY ${OPENAI_API_KEY}
 
 RUN pip3 install -r requirements.txt
 
