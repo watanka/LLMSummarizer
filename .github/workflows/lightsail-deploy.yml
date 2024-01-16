@@ -10,9 +10,11 @@ permissions:
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
   LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY}}
   LIGHTSAIL_USERNAME: ubuntu
   LIGHTSAIL_SERVICE_NAME: llmsummarizer-container
   AWS_REGION: ap-northeast-2
+
 
 jobs:
   buildfastapi:
@@ -46,7 +48,7 @@ jobs:
       - name: verify envfile
         run: |
           CONTENT=$(cat .env)
-          if [ "$CONTENT" != ${{ secrets.OPENAI_API_KEY }}]; then
+          if [ "$CONTENT" != ${{ secrets.OPENAI_API_KEY }} ]; then
             echo "api key not found in env."
             exit 1
           fi
