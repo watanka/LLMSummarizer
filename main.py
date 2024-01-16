@@ -34,6 +34,10 @@ app.add_middleware(
 def index():
     return FileResponse("frontend/dist/index.html")
 
+@app.get('/healthcheck')
+def ping() :
+    return 'pong'
+
 @app.post("/summary", status_code=status.HTTP_200_OK)
 def request_summary(summary_request: SummaryRequest):
 
