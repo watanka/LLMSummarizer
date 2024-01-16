@@ -65,7 +65,7 @@ jobs:
             --region ${{ env.AWS_REGION }} \
             --service-name ${{ env.LIGHTSAIL_SERVICE_NAME }} \
             --label llmsummarizer \
-            --image llmsumarizer:latest
+            --image llmsummarizer:latest
       
       - name: Launching the Containers
         run: |
