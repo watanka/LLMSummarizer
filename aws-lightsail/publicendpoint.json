@@ -1,4 +1,4 @@
 {
-    "containerName": "llmsummarizer-container",
+    "containerName": "llmsummarizer",
     "containerPort": 8090
 }
