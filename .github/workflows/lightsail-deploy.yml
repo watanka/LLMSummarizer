@@ -44,14 +44,7 @@ jobs:
         with: 
           envkey_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           file_name: .env
-          fail_on_empty: false
-      - name: verify envfile
-        run: |
-          CONTENT=$(cat .env)
-          if [ "$CONTENT" != ${{ secrets.OPENAI_API_KEY }} ]; then
-            echo "api key not found in env."
-            exit 1
-          fi
+          fail_on_empty: true
         
       
       - name: AWS authentication
@@ -79,6 +72,6 @@ jobs:
       
       - name: Launching the Containers
         run: |
-          aws lightsail create-container-service-deployment --service-name ${{ env.LIGHTSAIL_SERVICE_NAME}} \
+          aws lightsail create-container-service-deployment --service-name ${{ env.LIGHTSAIL_SERVICE_NAME }} \
           --containers file://aws-lightsail/deploymentconfig.json \
           --public-endpoint file://aws-lightsail/publicendpoint.json
