@@ -1,4 +1,4 @@
-{"llmsummarizer-container": {
+{"llmsummarizer": {
     "image": ":llmsummarizer-container.llmsummarizer.latest",
     "ports": {"8090": "HTTP"}
     }
