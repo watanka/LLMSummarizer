@@ -1,12 +1,4 @@
 {
     "containerName": "llmsummarizer",
-    "containerPort": 8090,
-    // "healthcheck": {
-    //     "healthyThreshold": 2,
-    //     "unhealthyThreshold": 10,
-    //     "timeoutSeconds": 60,
-    //     "intervalSeconds": 300,
-    //     "path": "/healthcheck",
-    //     "successCodes": "200-299"
-    // }
+    "containerPort": 8090
 }
