@@ -1,5 +1,4 @@
 name: lightsail-deploy
-
 on:
   push:
     branches: ['master']
@@ -10,6 +9,7 @@ env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
   LIGHTSAIL_HOST: ${{ secrets.LIGHTSAIL_HOST }}
   LIGHTSAIL_USERNAME: ubuntu
+  LIGHTSAIL_SERVICE_NAME: llmsummarizer-container
   AWS_REGION: ap-northeast-2
 
 jobs:
@@ -17,41 +17,55 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Upgrade AWS CLI version and setup lightsailctl
+      - name: Getting Code from Github
+        uses: actions/checkout@v4
+      - name: Updating to the latest versions
         run: |
-          aws --version
+          sudo apt-get update
+          sudo apt-get install -y jq unzip
+
+      - name: Install Amazon Client
+        run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
-          sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
-          which aws
+          sudo ./aws/install || true
           aws --version
-          sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
+          curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "lightsailctl"
+          sudo mv "lightsailctl" "/usr/local/bin/lightsailctl"
           sudo chmod +x /usr/local/bin/lightsailctl
       
-      - name: checkout branch
-        uses: actions/checkout@v4
-  
-      - name: setup python
-        uses: actions/setup-python@v5 
-        with:
-          python-version: '3.10'
-  
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3 # 배포환경에서의 환경변수 지정
+        with: 
+          envkey_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          file_name: .env
+          fail_on_empty: false
+      
       - name: AWS authentication
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}
-
+      
       - name: AWS Lighsail 연결 확인
         run: aws configure list
+        
 
-      - name: deploy automation
+      - name: Build a Docker Container
+        run: docker build -t llmsummarizer:latest .
+      
+      - name: upload image to Lightsail container service
         run: |
-
-            ssh-agent bash
-            ssh-add <(echo ${{ secrets.LIGHTSAIL_SSH_KEY }})
-            ssh user@hostname 'bash -s' <<EOF
-              cd ~/project/LLMSummarizer
-              sh docker-deploy.sh  
-            EOF
+          service_name=${{ env.LIGHTSAIL_SERVICE_NAME }}
+          aws lightsail push-container-image \
+            --region ${{ env.AWS_REGION }} \
+            --service-name ${{ env.LIGHTSAIL_SERVICE_NAME }} \
+            --label llmsummarizer \
+            --image llmsumarizer:latest
+      
+      - name: Launching the Containers
+        run: |
+          aws lightsail create-container-service-deployment --service-name ${{ env.LIGHTSAIL_SERVICE_NAME}} \
+          --containers file://aws-lightsail/deploymentconfig.json \
+          --public-endpoint file://aws-lightsail/publicendpoint.json
