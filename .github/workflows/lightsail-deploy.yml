@@ -43,6 +43,14 @@ jobs:
           envkey_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           file_name: .env
           fail_on_empty: false
+      - name: verify envfile
+        run: |
+          CONTENT=$(cat .env)
+          if [ "$CONTENT" != ${{ secrets.OPENAI_API_KEY }}]; then
+            echo "api key not found in env."
+            exit 1
+          fi
+        
       
       - name: AWS authentication
         uses: aws-actions/configure-aws-credentials@v1
@@ -51,7 +59,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}
       
-      - name: AWS Lighsail 연결 확인
+      - name: AWS Lightsail 연결 확인
         run: aws configure list
         
 
