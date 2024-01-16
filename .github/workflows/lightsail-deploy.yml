@@ -4,6 +4,8 @@ on:
     branches: ['master']
   pull_request:
     branches: ['master']
+permissions:
+    contents: read
 
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
@@ -13,7 +15,8 @@ env:
   AWS_REGION: ap-northeast-2
 
 jobs:
-  build:
+  buildfastapi:
+    name: Building FastAPI app
     runs-on: ubuntu-latest
     
     steps:
