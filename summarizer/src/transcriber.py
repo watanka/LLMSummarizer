@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import abc
 
 load_dotenv()
-whisper_model = OpenAI(openai_api_key='dummy')
+whisper_model = OpenAI()
 
 
 class AbstractTransriber(abc.ABC):
