@@ -43,9 +43,8 @@ jobs:
         uses: SpicyPizza/create-envfile@v1.3 # 배포환경에서의 환경변수 지정
         with: 
           envkey_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          directory: ../../
           file_name: .env
-          fail_on_empty: true
+          fail_on_empty: false
         
       
       - name: AWS authentication

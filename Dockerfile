@@ -7,7 +7,7 @@ RUN cd /frontend/ && npm install && npm run build
 FROM python:3.10-slim
 
 COPY . .
-COPY /.env /.env
+COPY .env /.env
 
 COPY --from=builder /frontend /
 
