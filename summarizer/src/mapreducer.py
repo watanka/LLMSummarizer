@@ -10,7 +10,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-llm = OpenAI(temperature=0)
+llm = OpenAI(temperature=0, openai_api_key='dummy')
 
 prompt = PromptTemplate.from_template(
     """The following is a video transcription. You are an expert in summarization. Provide the summary in bullet points so that the customer can understand the context without watching the video. The summarization should be in korean.
