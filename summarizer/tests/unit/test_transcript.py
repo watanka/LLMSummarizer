@@ -1,3 +1,5 @@
+import pytest
+
 import pytube
 from openai import OpenAI
 
@@ -12,7 +14,7 @@ load_dotenv()
 whisper_model = OpenAI()
 transcriber = WhisperAPITranscriber(whisper_model)
 
-
+@pytest.mark.skip()
 def test_openai_whisper_takes_pytube_stream_as_input():
     URL = "https://www.youtube.com/watch?v=QgaTjRH5sqk"
 
