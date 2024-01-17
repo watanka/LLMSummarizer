@@ -1,5 +1,7 @@
+import pytube
 from pytube import YouTube
 from pytube.exceptions import VideoUnavailable
+from io import BytesIO
 
 import abc
 
@@ -44,15 +46,8 @@ class YoutubeInputHandler(AbstractInputHandler):
         """
         **download audio file as side effect
         """
-        try:
-            tmp_fname = str(uuid4())[:8] + ".mp3"
-            self.parse_obj.streams.filter(only_audio=True).first().download(
-                output_path=tmpdir, filename=tmp_fname
-            )
+        byte_arr = bytearray()
+        for byte_obj in pytube.request.stream(self.parse_obj.streams.filter(only_audio=True).first().url) :
+            byte_arr += byte_obj
 
-            audio_file = open(os.path.join(tmpdir, tmp_fname), "rb")
-
-            return audio_file
-
-        finally:
-            os.remove(os.path.join(tmpdir, tmp_fname))
+        return BytesIO(byte_arr)
