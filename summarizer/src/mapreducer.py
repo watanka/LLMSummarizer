@@ -1,8 +1,6 @@
-from langchain.schema import Document
-from langchain_openai.llms import OpenAI
-from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-import openai
+
+
+from summarizer.src.llm_chain import MapReduceChain
 
 import abc
 
@@ -10,17 +8,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-llm = OpenAI(temperature=0, openai_api_key='dummy')
-
-prompt = PromptTemplate.from_template(
-    """The following is a video transcription. You are an expert in summarization. Provide the summary in bullet points so that the customer can understand the context without watching the video. The summarization should be in korean.
-    {docs}
-    """
-)
-
-output_parser = StrOutputParser()
-
-llm_chain = prompt | llm | output_parser
 
 
 class AbstractMapReducer(abc.ABC):
@@ -38,7 +25,7 @@ class FakeMapReducer(AbstractMapReducer):
 
 
 class LangChainMapReducer(AbstractMapReducer):
-    def __init__(self, api_key = None, llm_chain=llm_chain):
+    def __init__(self, api_key = None, llm_chain=MapReduceChain):
         self.llm_chain = llm_chain
         if api_key :
             self.llm_chain.middle[0].openai_api_key = api_key
