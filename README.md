@@ -1,10 +1,12 @@
 
 
 ## 기능 정의
-- url과 openai api키를 입력하면, 해당 url의 내용의 요약본을 제공합니다.
+- url과 openai api키를 입력하면, 해당 url의 내용의 요약본을 제공합니다.  
 `인풋` : 유튜브 url과 OpenAI api키  
 `아웃풋` : 요약본
 <br>
+
+
 ![](img/llmsummarizer-pipeline.png)
 
 ## How to start
