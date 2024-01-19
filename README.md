@@ -11,7 +11,3 @@
 - [LLMSummarizer 프로젝트(2) CI/CD 구성](https://watanka.github.io/blog/posts/LLMSummarizer%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B82/)
 - [LLMSummarizer 프로젝트(3)오디오 데이터 형식을 바꿔서 속도 개선하기](https://watanka.github.io/blog/posts/LLMSummarizer%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B83/)
 
-
-## 개선 포인트
-[ ] pytube는 borg 패턴으로 pytube.streams.Stream 클래스를 리턴. audio 파일 핸들링
-- 파일과 stream의 차이? 메모리에 있는 데이터와 파일에 있는 데이터와 어떻게 다른건지?
