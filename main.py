@@ -19,7 +19,7 @@ app.mount('/assets', StaticFiles(directory='frontend/dist/assets') )
 
 
 origins = [
-    os.getenv('VITE_SERVER_URL', "http://localhost:5173")
+    os.getenv('VITE_SERVER_URL')
 ]
 
 app.add_middleware(
